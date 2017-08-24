@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
 
 android {
     compileSdkVersion 25
@@ -27,3 +28,5 @@ dependencies {
     compile "org.lzh.compiler.parceler:parceler-api:${PARCELER_VERSION}"
     compile "com.github.yjfnypeu.Router:router-api:${ROUTER_VERSION}"
 }
+
+apply from: '../javadoc.gradle'
