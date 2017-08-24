@@ -33,6 +33,11 @@ public class PluginActivityLauncher extends ActivityLauncher {
     }
 
     @Override
+    public void open(android.support.v4.app.Fragment fragment) throws Exception {
+        open(fragment.getActivity());
+    }
+
+    @Override
     public void open(Fragment fragment) throws Exception {
         open(fragment.getActivity());
     }

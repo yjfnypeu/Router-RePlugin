@@ -27,6 +27,9 @@ dependencies {
 
     compile "org.lzh.compiler.parceler:parceler-api:${PARCELER_VERSION}"
     compile "com.github.yjfnypeu.Router:router-api:${ROUTER_VERSION}"
+
+
+    provided 'com.android.support:support-v4:25.3.1'
 }
 
 apply from: '../javadoc.gradle'
