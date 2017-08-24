@@ -20,9 +20,12 @@ public final class PluginRouterConfiguration {
      * @param context 用于启动远程任务的。
      */
     public static void init(String hostPackage, String alias, Context context) {
-        RouterConfiguration.get().startHostService(hostPackage, context);
+        RouterConfiguration.get().startHostService(hostPackage, context, alias);
         RouterConfiguration.get().setRemoteFactory(new PluginRemoteFactory(alias));
         RouterConfiguration.get().setCallback(new PluginRouterCallback(context));
+        // 设置路由启动器
+        RouterConfiguration.get().setActionLauncher(PluginActionLauncher.class);
+        RouterConfiguration.get().setActivityLauncher(PluginActivityLauncher.class);
     }
 
     public PluginRouterConfiguration setCallback(IPluginCallback callback) {
