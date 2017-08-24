@@ -1,4 +1,4 @@
-package com.lzh.router.replugin.plugin;
+package com.lzh.router.replugin.core;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,16 +15,28 @@ import com.qihoo360.replugin.RePlugin;
  *
  * Created by haoge on 2017/8/24.
  */
-final class PluginRouterCallback implements RouteCallback {
+public final class RePluginRouteCallback implements RouteCallback{
     private Context context;// application context.
+    private IUriConverter converter = IUriConverter.internal;
+    private IPluginCallback callback;
 
-    public PluginRouterCallback(Context context) {
+    public RePluginRouteCallback(Context context) {
         this.context = context.getApplicationContext();
+    }
+
+    public void setConverter(IUriConverter converter) {
+        if (converter != null) {
+            this.converter = converter;
+        }
+    }
+
+    public void setCallback(IPluginCallback callback) {
+        this.callback = callback;
     }
 
     @Override
     public void notFound(Uri uri, NotFoundException e) {
-        String alias = PluginRouterConfiguration.get().converter.transform(uri);
+        String alias = converter.transform(uri);
         if (TextUtils.isEmpty(alias)) {
             // 表示此uri非法。不处理
             return;
@@ -48,20 +60,4 @@ final class PluginRouterCallback implements RouteCallback {
 
     @Override
     public void onOpenFailed(Uri uri, Throwable e) {}
-
-    IPluginCallback getReal() {
-        return PluginRouterConfiguration.get().callback == null ?
-                IPluginCallback.EMPTY : PluginRouterConfiguration.get().callback;
-    }
-
-    /**
-     * 默认的插件路由规则转换器。此转换器的规则为：路由url的scheme为各自路由的别名。
-     */
-    static class InternalConverter implements IUriConverter {
-
-        @Override
-        public String transform(Uri uri) {
-            return uri.getScheme();
-        }
-    }
 }

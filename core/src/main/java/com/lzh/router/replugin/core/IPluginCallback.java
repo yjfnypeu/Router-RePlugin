@@ -1,4 +1,4 @@
-package com.lzh.router.replugin.plugin;
+package com.lzh.router.replugin.core;
 
 /**
  * 插件的回调。

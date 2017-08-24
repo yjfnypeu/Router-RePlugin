@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'maven'
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.1"
@@ -25,8 +25,10 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
 
-    provided 'com.qihoo360.replugin:replugin-host-lib:2.1.7'
+    provided 'com.qihoo360.replugin:replugin-plugin-lib:2.1.7'
     provided "org.lzh.compiler.parceler:parceler-api:${PARCELER_VERSION}"
     provided 'com.android.support:support-v4:25.3.1'
-    compile "com.github.yjfnypeu.Router:router-host:${ROUTER_VERSION}"
+    compile "com.github.yjfnypeu.Router:router-api:${ROUTER_VERSION}"
 }
+
+apply from: '../javadoc.gradle'
