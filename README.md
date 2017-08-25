@@ -68,11 +68,20 @@ PluginRouterConfiguration.init(hostPackage, alias, context);
 - 配置：[HostRouterConfiguration/PluginRouterConfiguration].setCallback(callback)
 - 接口说明：[点击查看说明文档](https://github.com/yjfnypeu/Router-RePlugin/blob/master/core/src/main/java/com/lzh/router/replugin/core/IPluginCallback.java)
 
-3. 兼容Router全局路由回调：
+3. [IUpdateCombine](https://github.com/yjfnypeu/Router-RePlugin/blob/master/host/src/main/java/com/lzh/router/replugin/update/IUpdateCombine.java)
 
 - 作用：
 
-	由于Router本身只提供了一个独立的全局路由回调。而Router-RePlugin框架本身内部是基于此全局回调来做的兼容配置。所以对于需要使用全局回调的需求。可以使用下方配置进行接入
+    当使用框架提供的[UpdateRePluginCallbacks](https://github.com/yjfnypeu/Router-RePlugin/blob/master/host/src/main/java/com/lzh/router/replugin/update/UpdateRePluginCallbacks.java) 作为远程插件下载更新的入口时。
+    此接口将被用于配合[UpdatePlugin](https://github.com/yjfnypeu/UpdatePlugin)框架使用, 用于根据插件别名组装真正的对应的更新接口url地址。
+- 接口说明：[点击查看说明文档](https://github.com/yjfnypeu/Router-RePlugin/blob/master/host/src/main/java/com/lzh/router/replugin/update/IUpdateCombine.java)
+
+4. 兼容Router全局路由回调：
+
+- 作用：
+
+    由于Router本身只提供了一个独立的全局路由回调。而Router-RePlugin框架本身内部是基于此全局回调来做的兼容配置。所以对于需要使用全局回调的需求。可以使用下方配置进行接入
+
 - 配置：[HostRouterConfiguration/PluginRouterConfiguration].setRouteCallback(routeCallback)
 
 ### 联系作者
