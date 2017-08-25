@@ -3,6 +3,7 @@ package com.lzh.router.replugin.host;
 import android.content.Context;
 
 import com.lzh.nonview.router.RouterConfiguration;
+import com.lzh.nonview.router.route.RouteCallback;
 import com.lzh.router.replugin.core.IPluginCallback;
 import com.lzh.router.replugin.core.IUriConverter;
 import com.lzh.router.replugin.core.RePluginRouteCallback;
@@ -13,7 +14,6 @@ import com.lzh.router.replugin.core.RePluginRouteCallback;
  */
 public final class HostRouterConfiguration {
 
-    private RePluginRouteCallback callback;
     /**
      * 初始化加载。此方法每个插件只需要被加载一次。请尽早进行初始化。
      * @param hostPackage 宿主包名：用于指定启动、连接远程路由服务。为各插件提供路由索引功能
@@ -23,15 +23,19 @@ public final class HostRouterConfiguration {
         // 启动并连接远程路由服务。
         RouterConfiguration.get().startHostService(hostPackage, context);
         // 初始化callback.
-        RouterConfiguration.get().setCallback(get().callback = new RePluginRouteCallback(context));
+        RouterConfiguration.get().setCallback(RePluginRouteCallback.get().setContext(context));
         // 设置路由启动器
         RouterConfiguration.get().setActionLauncher(HostActionLauncher.class);
         RouterConfiguration.get().setActivityLauncher(HostActivityLauncher.class);
     }
 
     public HostRouterConfiguration setCallback(IPluginCallback callback) {
-        check();
-        this.callback.setCallback(callback);
+        RePluginRouteCallback.get().setCallback(callback);
+        return this;
+    }
+
+    public HostRouterConfiguration setRouteCallback(RouteCallback callback) {
+        RePluginRouteCallback.get().setRouteCallback(callback);
         return this;
     }
 
@@ -43,17 +47,10 @@ public final class HostRouterConfiguration {
      * @return configuration
      */
     public HostRouterConfiguration setConverter(IUriConverter converter) {
-        check();
         if (converter != null) {
-            this.callback.setConverter(converter);
+            RePluginRouteCallback.get().setConverter(converter);
         }
         return this;
-    }
-
-    private void check() {
-        if (callback == null) {
-            throw new RuntimeException("Should call PluginRouterConfiguration.init() first!");
-        }
     }
 
     private static HostRouterConfiguration configuration = new HostRouterConfiguration();

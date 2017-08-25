@@ -30,20 +30,20 @@ compile "com.github.yjfnypeu.Router-RePlugin:plugin:${LastestVersion}"
 
 1. 在每个插件或者宿主中。添加注册自身的编译时生成的路由表类：
 
-```java
+```
 // 添加路由规则。
 RouterConfiguration.get().addRouteCreator(new RouterRuleCreator());
 ```
 
 2. 在宿主中进行初始化：
 
-```java
+```
 HostRouterConfiguration.init(hostPackage, context);
 ```
 
 3. 在插件中进行初始化：
 
-```java
+```
 PluginRouterConfiguration.init(hostPackage, alias, context);
 ```
 
@@ -54,7 +54,26 @@ PluginRouterConfiguration.init(hostPackage, alias, context);
 
 ### Advance
 
-[更多进阶用法。请参考wiki](https://github.com/yjfnypeu/Router-RePlugin/wiki)
+框架提供了一些额外接口。便于更好的进行使用,所有的配置项均在宿主-插件对应的配置入口类中进行配置：
+
+1. [IUriConverter](https://github.com/yjfnypeu/Router-RePlugin/blob/master/core/src/main/java/com/lzh/router/replugin/core/IUriConverter.java)
+
+- 作用：当用于启动路由的uri在路由表中未找到时，使用此装换器通过uri获取到对应的插件别名
+- 配置：[HostRouterConfiguration/PluginRouterConfiguration].setConverter(converter)
+- 接口说明：[点击查看说明文档](https://github.com/yjfnypeu/Router-RePlugin/blob/master/core/src/main/java/com/lzh/router/replugin/core/IUriConverter.java)
+
+2. [IPluginCallback](https://github.com/yjfnypeu/Router-RePlugin/blob/master/core/src/main/java/com/lzh/router/replugin/core/IPluginCallback.java)
+
+- 作用：用于在对插件路由的接入过程中。出现的问题进行通知。
+- 配置：[HostRouterConfiguration/PluginRouterConfiguration].setCallback(callback)
+- 接口说明：[点击查看说明文档](https://github.com/yjfnypeu/Router-RePlugin/blob/master/core/src/main/java/com/lzh/router/replugin/core/IPluginCallback.java)
+
+3. 兼容Router全局路由回调：
+
+- 作用：
+
+	由于Router本身只提供了一个独立的全局路由回调。而Router-RePlugin框架本身内部是基于此全局回调来做的兼容配置。所以对于需要使用全局回调的需求。可以使用下方配置进行接入
+- 配置：[HostRouterConfiguration/PluginRouterConfiguration].setRouteCallback(routeCallback)
 
 ### 联系作者
 email: 470368500@qq.com
@@ -65,7 +84,7 @@ email: 470368500@qq.com
 
 ## License
 ```
-Copyright 2015 Haoge
+Copyright 2017 Haoge
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

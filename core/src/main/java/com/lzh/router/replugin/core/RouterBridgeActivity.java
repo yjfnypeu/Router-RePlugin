@@ -26,6 +26,7 @@ public class RouterBridgeActivity extends Activity {
             // 通过传递过来的uri与其对应的extras。恢复之前插件未加载时的路由。
             Router.resume(uri, extras).open(RouterBridgeActivity.this);
         }
+        RePluginRouteCallback.get().getCallback().onResume(uri);
         finish();
     }
 

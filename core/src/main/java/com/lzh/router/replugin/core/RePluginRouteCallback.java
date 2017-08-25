@@ -11,33 +11,49 @@ import com.lzh.nonview.router.module.RouteRule;
 import com.lzh.nonview.router.route.RouteCallback;
 import com.qihoo360.replugin.RePlugin;
 
+import java.lang.ref.WeakReference;
+
 /**
  * 针对RePlugin框架所配置的路由回调。将在此进行连接Router-RePlugin配置：
  *
  * Created by haoge on 2017/8/24.
  */
 public final class RePluginRouteCallback implements RouteCallback{
-    private Context context;// application context.
-    private IUriConverter converter = IUriConverter.internal;
-    private IPluginCallback callback;
-    private RouteCallback routeCallback;
 
-    public RePluginRouteCallback(Context context) {
-        this.context = context.getApplicationContext();
+    private static RePluginRouteCallback instance = new RePluginRouteCallback();
+    private RePluginRouteCallback() {}
+    public static RePluginRouteCallback get() {
+        return instance;
     }
 
-    public void setConverter(IUriConverter converter) {
+    private WeakReference<Context> context;// application context.
+    private IUriConverter converter = IUriConverter.internal;
+    private IPluginCallback callback;
+
+    private RouteCallback routeCallback;
+
+    public RePluginRouteCallback setContext(Context context) {
+        if (context != null) {
+            this.context = new WeakReference<>(context.getApplicationContext());
+        }
+        return this;
+    }
+
+    public RePluginRouteCallback setConverter(IUriConverter converter) {
         if (converter != null) {
             this.converter = converter;
         }
+        return this;
     }
 
-    public void setCallback(IPluginCallback callback) {
+    public RePluginRouteCallback setCallback(IPluginCallback callback) {
         this.callback = callback;
+        return this;
     }
 
-    public void setRouteCallback(RouteCallback routeCallback) {
+    public RePluginRouteCallback setRouteCallback(RouteCallback routeCallback) {
         this.routeCallback = routeCallback;
+        return this;
     }
 
     @Override
@@ -64,12 +80,26 @@ public final class RePluginRouteCallback implements RouteCallback{
             return;
         }
 
+        Context application = getValidContext();
+
         // 请求加载插件并启动中间桥接页面.便于加载插件成功后恢复路由。
         Intent intent = RePlugin.createIntent(alias, RouterBridgeActivity.class.getCanonicalName());
         intent.putExtra("uri", uri);
         intent.putExtra("extras", RouterConfiguration.get().restoreExtras(uri));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        RePlugin.startActivity(context, intent);
+        RePlugin.startActivity(application, intent);
+    }
+
+    /**
+     * 获取有效的context进行跳转。一般不会被触发。
+     * @return 保存的有效context或者Host context。
+     */
+    private Context getValidContext() {
+        Context valid = context.get();
+        if (valid != null) {
+            return valid;
+        }
+        return RePlugin.getHostContext();
     }
 
     @Override
@@ -84,5 +114,9 @@ public final class RePluginRouteCallback implements RouteCallback{
         if (routeCallback != null) {
             routeCallback.onOpenFailed(uri, e);
         }
+    }
+
+    public IPluginCallback getCallback() {
+        return callback;
     }
 }
