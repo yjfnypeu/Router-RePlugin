@@ -21,13 +21,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile project(':core')
 
     provided 'com.qihoo360.replugin:replugin-plugin-lib:2.1.7'
     provided "org.lzh.compiler.parceler:parceler-api:${PARCELER_VERSION}"
-    provided 'com.android.support:support-v4:25.3.1'
+    provided 'com.android.support:support-v4:25.3.1'// 提供用于兼容ActivityLauncher编写
+
+    compile "com.qihoo360.replugin:replugin-plugin-lib:${RePlugin_version}"
+    compile "com.github.yjfnypeu.Router:router-api:${ROUTER_VERSION}"
 }
 
 apply from: '../javadoc.gradle'
