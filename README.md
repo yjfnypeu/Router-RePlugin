@@ -47,14 +47,14 @@ HostRouterConfiguration.init(hostPackage, context);
 PluginRouterConfiguration.init(hostPackage, alias, context);
 ```
 
-****
-
 - hostPackage代表宿主包名。用于启动远程路由服务。
 - alias为RePlugin框架所提供的插件别名。
 
-****
-
 具体使用配置请参考：**[RePluginDemo](https://github.com/JumeiRdGroup/Router/tree/master/demos/RePluginDemo)**
+
+### Advance
+
+[更多进阶用法。请参考wiki](https://github.com/yjfnypeu/Router-RePlugin/wiki)
 
 ### 联系作者
 email: 470368500@qq.com
