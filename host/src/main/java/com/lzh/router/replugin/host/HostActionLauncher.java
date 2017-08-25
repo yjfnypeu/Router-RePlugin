@@ -12,7 +12,7 @@ import com.qihoo360.replugin.RePlugin;
 import java.lang.reflect.Method;
 
 /**
- * 针对RePlugin框架定制的动作路由启动器。
+ * 针对RePlugin框架定制的宿主使用的动作路由启动器。
  */
 public class HostActionLauncher extends ActionLauncher {
 
@@ -29,7 +29,6 @@ public class HostActionLauncher extends ActionLauncher {
         Class<?> actionSupport = loader.loadClass(ActionSupport.class.getCanonicalName());
         Method method = actionSupport.getMethod("onRouteTrigger", Context.class, Bundle.class);
         method.invoke(action, context, data);
-//        getExecutor().execute(new ActionRunnable(action, context, data));
     }
 
     private ClassLoader getLoader() {

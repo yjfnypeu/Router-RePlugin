@@ -8,7 +8,9 @@ import com.lzh.nonview.router.Router;
 import com.lzh.nonview.router.extras.RouteBundleExtras;
 
 /**
- * 由于RePlugin无法直接指定加载某插件。所以使用Router跳转时可能由于插件未被加载。导致启动失败。
+ * 插件间跳转的中间桥接页面。当Router启动一个未被加载的插件的路由时。在加载插件成功后。将会跳转到此页面并恢复之前启动的路由。
+ *
+ * <p>外部不应该直接跳转至此页面。此页面跳转处应只存在于{@link RePluginRouteCallback}中</p>
  */
 public class RouterBridgeActivity extends Activity {
 
@@ -18,10 +20,12 @@ public class RouterBridgeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 恢复路由并销毁当前页面。
         uri = getIntent().getParcelableExtra("uri");
         extras = getIntent().getParcelableExtra("extras");
-        Router.resume(uri, extras).open(RouterBridgeActivity.this);
+        if (uri != null) {
+            // 通过传递过来的uri与其对应的extras。恢复之前插件未加载时的路由。
+            Router.resume(uri, extras).open(RouterBridgeActivity.this);
+        }
         finish();
     }
 

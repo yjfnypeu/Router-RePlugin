@@ -10,7 +10,7 @@ import com.lzh.nonview.router.launcher.ActivityLauncher;
 import com.qihoo360.replugin.RePlugin;
 
 /**
- * 针对RePlugin框架定制的页面路由启动器
+ * 针对RePlugin框架定制的宿主使用的页面路由启动器
  */
 public class HostActivityLauncher extends ActivityLauncher {
 
@@ -47,7 +47,7 @@ public class HostActivityLauncher extends ActivityLauncher {
         // 根据是否含有alias判断是否需要使用RePlugin进行跳转
         if (!TextUtils.isEmpty(alias())) {
             // 跳转其他组件。需要使用RePlugin
-            RePlugin.startActivity(context, createIntent(context));
+            RePlugin.startActivityForResult((Activity) context, createIntent(context), extras.getRequestCode());
             return;
         }
 
