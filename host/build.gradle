@@ -29,7 +29,7 @@ dependencies {
     provided 'com.qihoo360.replugin:replugin-host-lib:2.1.7'
     provided "org.lzh.compiler.parceler:parceler-api:${PARCELER_VERSION}"
     provided 'com.android.support:support-v4:25.3.1'
-
+    compile "com.github.yjfnypeu.Router:router-host:${ROUTER_VERSION}"
     compile "org.lzh.nonview.updateplugin:UpdatePlugin:${UpdatePlugin_version}"
 }
 

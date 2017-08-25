@@ -11,7 +11,7 @@ import org.lzh.framework.updatepluginlib.UpdateConfig;
 /**
  * 接入<a href="https://github.com/yjfnypeu/UpdatePlugin">UpdatePlugin</a>框架，用于方便的进行远程插件下载、安装、启动配置。
  */
-public abstract class UpdateRePluginCallbacks extends RePluginCallbacks{
+public class UpdateRePluginCallbacks extends RePluginCallbacks{
 
     private IUpdateCombine combine;
     private UpdateConfig updateConfig;

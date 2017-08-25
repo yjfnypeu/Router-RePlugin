@@ -68,6 +68,7 @@ public final class RePluginRouteCallback implements RouteCallback{
         Intent intent = RePlugin.createIntent(alias, RouterBridgeActivity.class.getCanonicalName());
         intent.putExtra("uri", uri);
         intent.putExtra("extras", RouterConfiguration.get().restoreExtras(uri));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         RePlugin.startActivity(context, intent);
     }
 
