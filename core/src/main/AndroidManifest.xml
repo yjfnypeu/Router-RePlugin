@@ -2,8 +2,7 @@
 
     package="com.lzh.router.replugin.core">
 
-    <application android:allowBackup="true"
-        android:supportsRtl="true">
+    <application>
 
         <activity
             android:theme="@android:style/Theme.Translucent"
