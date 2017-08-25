@@ -58,7 +58,7 @@ PluginRouterConfiguration.init(hostPackage, alias, context);
 
 1. [IUriConverter](https://github.com/yjfnypeu/Router-RePlugin/blob/master/core/src/main/java/com/lzh/router/replugin/core/IUriConverter.java)
 
-- 作用：当用于启动路由的uri在路由表中未找到时，使用此装换器通过uri获取到对应的插件别名
+- 作用：当用于启动路由的uri在路由表中未找到时，使用此装换器通过uri获取到对应的插件别名，默认为使用路由uri的scheme部分作为对应的插件别名。
 - 配置：[HostRouterConfiguration/PluginRouterConfiguration].setConverter(converter)
 - 接口说明：[点击查看说明文档](https://github.com/yjfnypeu/Router-RePlugin/blob/master/core/src/main/java/com/lzh/router/replugin/core/IUriConverter.java)
 
