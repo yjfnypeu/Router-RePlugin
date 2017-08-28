@@ -2,7 +2,7 @@
 [![](https://jitpack.io/v/yjfnypeu/Router-RePlugin.svg)](https://jitpack.io/#yjfnypeu/Router-RePlugin)
 
 
-Router-Plugin为一款专用于对360的RePlugin框架使用Router作为兼容适配的框架。使更容易接入。
+Router-Plugin是一款针对360的[RePlugin](https://github.com/Qihoo360/RePlugin)框架使用[Router](https://github.com/yjfnypeu/Router)作为路由跳转的兼容框架。
 
 ### Dependencies
 
@@ -50,6 +50,14 @@ PluginRouterConfiguration.init(hostPackage, alias, context);
 - hostPackage代表宿主包名。用于启动远程路由服务。
 - alias为RePlugin框架所提供的插件别名。
 
+4. 配置路由uri-插件别名转换器：
+
+```
+[HostRouterConfiguration/PluginRouterConfiguration].setConverter(converter)
+```
+
+**转换器** 用于当你使用uri启动。对应的插件还未启动时，对uri进行解析。获取对应的插件别名。便于通过RePlugin进行插件启动。默认转换器为 *使用路由uri的scheme部分作为对应的插件别名*。
+
 具体使用配置请参考：**[RePluginDemo](https://github.com/JumeiRdGroup/Router/tree/master/demos/RePluginDemo)**
 
 ### Advance
@@ -58,7 +66,7 @@ PluginRouterConfiguration.init(hostPackage, alias, context);
 
 1. [IUriConverter](https://github.com/yjfnypeu/Router-RePlugin/blob/master/core/src/main/java/com/lzh/router/replugin/core/IUriConverter.java)
 
-- 作用：当用于启动路由的uri在路由表中未找到时，使用此装换器通过uri获取到对应的插件别名，默认为使用路由uri的scheme部分作为对应的插件别名。
+- 作用：当用于启动路由的uri在路由表中未找到时，使用此转换器通过uri获取到对应的插件别名，默认为使用路由uri的scheme部分作为对应的插件别名。
 - 配置：[HostRouterConfiguration/PluginRouterConfiguration].setConverter(converter)
 - 接口说明：[点击查看说明文档](https://github.com/yjfnypeu/Router-RePlugin/blob/master/core/src/main/java/com/lzh/router/replugin/core/IUriConverter.java)
 
