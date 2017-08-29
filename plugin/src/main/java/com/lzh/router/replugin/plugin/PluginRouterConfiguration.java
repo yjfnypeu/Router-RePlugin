@@ -8,6 +8,7 @@ import com.lzh.router.replugin.core.IPluginCallback;
 import com.lzh.router.replugin.core.IUriConverter;
 import com.lzh.router.replugin.core.RePluginActionLauncher;
 import com.lzh.router.replugin.core.RePluginRouteCallback;
+import com.lzh.router.replugin.core.RouterBridgeReceiver;
 
 /**
  * RePlugin插件配置入口。
@@ -31,6 +32,8 @@ public final class PluginRouterConfiguration {
         // 设置路由启动器
         RouterConfiguration.get().setActionLauncher(RePluginActionLauncher.class);
         RouterConfiguration.get().setActivityLauncher(PluginActivityLauncher.class);
+
+        RouterBridgeReceiver.registerSelf(context, alias);
     }
 
     public PluginRouterConfiguration setCallback(IPluginCallback callback) {
