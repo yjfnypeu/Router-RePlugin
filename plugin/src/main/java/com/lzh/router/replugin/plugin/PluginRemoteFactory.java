@@ -10,7 +10,7 @@ import com.lzh.nonview.router.protocol.IRemoteFactory;
  * 插件远程数据创建器。用于对其他插件提供额外参数。供其他插件或宿主做路由启动。
  * Created by haoge on 2017/8/24.
  */
-public class PluginRemoteFactory implements IRemoteFactory {
+class PluginRemoteFactory implements IRemoteFactory {
 
     String alias;
 

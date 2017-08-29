@@ -12,7 +12,7 @@ import com.qihoo360.replugin.RePlugin;
 /**
  * 针对RePlugin框架定制的页面路由启动器
  */
-public class PluginActivityLauncher extends ActivityLauncher {
+class PluginActivityLauncher extends ActivityLauncher {
 
     @Override
     public Intent createIntent(Context context) {
