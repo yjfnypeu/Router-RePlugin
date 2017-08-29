@@ -14,7 +14,10 @@ public class RePluginActionLauncher extends DefaultActionLauncher {
         if (TextUtils.isEmpty(alias)) {
             super.open(context);
         } else {
-            context.sendBroadcast(new Intent(RouterBridgeReceiver.ACTION_PREFIX + alias));
+            Intent intent = new Intent(RouterBridgeReceiver.ACTION_PREFIX + alias);
+            intent.putExtra("uri", uri);
+            intent.putExtra("extras", extras);
+            context.sendBroadcast(intent);
         }
     }
 
