@@ -1,12 +1,15 @@
 package com.lzh.router.replugin.host;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.lzh.nonview.router.RouterConfiguration;
 import com.lzh.nonview.router.route.RouteCallback;
 import com.lzh.router.replugin.core.IPluginCallback;
 import com.lzh.router.replugin.core.IUriConverter;
+import com.lzh.router.replugin.core.RePluginActionLauncher;
 import com.lzh.router.replugin.core.RePluginRouteCallback;
+import com.lzh.router.replugin.core.RouterBridgeReceiver;
 
 /**
  * 宿主配置入口
@@ -23,10 +26,14 @@ public final class HostRouterConfiguration {
         // 启动并连接远程路由服务。
         RouterConfiguration.get().startHostService(hostPackage, context);
         // 初始化callback.
+        RouterConfiguration.get().setRemoteFactory(new HostRemoteFactory());
         RouterConfiguration.get().setCallback(RePluginRouteCallback.get().setContext(context));
         // 设置路由启动器
-        RouterConfiguration.get().setActionLauncher(HostActionLauncher.class);
+        RouterConfiguration.get().setActionLauncher(RePluginActionLauncher.class);
         RouterConfiguration.get().setActivityLauncher(HostActivityLauncher.class);
+
+        // 对宿主指定一个特殊的别名用于注册广播。
+        RouterBridgeReceiver.registerSelf(context, "ROUTER.HOST");
     }
 
     public HostRouterConfiguration setCallback(IPluginCallback callback) {

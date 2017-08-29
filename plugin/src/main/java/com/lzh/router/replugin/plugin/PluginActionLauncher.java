@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
  */
 public class PluginActionLauncher extends ActionLauncher {
 
+
     @Override
     public void open(Context context) throws Exception {
         ClassLoader loader = getLoader();

@@ -6,6 +6,7 @@ import com.lzh.nonview.router.RouterConfiguration;
 import com.lzh.nonview.router.route.RouteCallback;
 import com.lzh.router.replugin.core.IPluginCallback;
 import com.lzh.router.replugin.core.IUriConverter;
+import com.lzh.router.replugin.core.RePluginActionLauncher;
 import com.lzh.router.replugin.core.RePluginRouteCallback;
 
 /**
@@ -28,7 +29,7 @@ public final class PluginRouterConfiguration {
         // 初始化callback.
         RouterConfiguration.get().setCallback(RePluginRouteCallback.get().setContext(context));
         // 设置路由启动器
-        RouterConfiguration.get().setActionLauncher(PluginActionLauncher.class);
+        RouterConfiguration.get().setActionLauncher(RePluginActionLauncher.class);
         RouterConfiguration.get().setActivityLauncher(PluginActivityLauncher.class);
     }
 
