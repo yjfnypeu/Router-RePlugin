@@ -9,6 +9,9 @@ import android.net.Uri;
 import com.lzh.nonview.router.Router;
 import com.lzh.nonview.router.extras.RouteBundleExtras;
 
+/**
+ * 通过此接收器接收从其他插件中的{@link RePluginActionLauncher}传递过来的数据并进行路由重启。
+ */
 public class RouterBridgeReceiver extends BroadcastReceiver {
 
     static final String ACTION_PREFIX = "com.lzh.router.replugin.actionlauncher.action.";
@@ -18,10 +21,9 @@ public class RouterBridgeReceiver extends BroadcastReceiver {
         if (intent == null) {
             return;
         }
-
         Uri uri = intent.getParcelableExtra("uri");
         RouteBundleExtras extras = intent.getParcelableExtra("extras");
-        Router.resume(uri, extras);
+        Router.resume(uri, extras).open(context);
     }
 
     public static void registerSelf (Context context, String alias) {
