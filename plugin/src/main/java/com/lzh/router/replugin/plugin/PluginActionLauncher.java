@@ -14,8 +14,7 @@ import java.lang.reflect.Method;
 /**
  * 针对RePlugin框架定制的动作路由启动器。
  */
-class PluginActionLauncher extends ActionLauncher {
-
+public class PluginActionLauncher extends ActionLauncher {
 
     @Override
     public void open(Context context) throws Exception {

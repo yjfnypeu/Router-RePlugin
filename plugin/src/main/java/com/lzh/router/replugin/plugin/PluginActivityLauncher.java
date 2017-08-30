@@ -13,7 +13,7 @@ import com.qihoo360.replugin.RePlugin;
 /**
  * 针对RePlugin框架定制的页面路由启动器
  */
-class PluginActivityLauncher extends DefaultActivityLauncher {
+public class PluginActivityLauncher extends DefaultActivityLauncher {
 
 
     @Override

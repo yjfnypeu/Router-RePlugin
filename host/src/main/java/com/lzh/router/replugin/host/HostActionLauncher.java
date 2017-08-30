@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
 /**
  * 针对RePlugin框架定制的宿主使用的动作路由启动器。
  */
-class HostActionLauncher extends ActionLauncher {
+public class HostActionLauncher extends ActionLauncher {
 
     @Override
     public void open(Context context) throws Exception {
