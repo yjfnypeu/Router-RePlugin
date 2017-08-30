@@ -7,54 +7,55 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.lzh.nonview.router.launcher.ActivityLauncher;
+import com.lzh.nonview.router.launcher.DefaultActivityLauncher;
 import com.qihoo360.replugin.RePlugin;
 
 /**
  * 针对RePlugin框架定制的页面路由启动器
  */
-class PluginActivityLauncher extends ActivityLauncher {
+class PluginActivityLauncher extends DefaultActivityLauncher {
+
 
     @Override
     public Intent createIntent(Context context) {
         String alias = alias();
-        Intent intent;
         if (TextUtils.isEmpty(alias)) {
-            intent = new Intent();
-            intent.setClassName(context, rule.getRuleClz());
+            return super.createIntent(context);
         } else {
-            // it means plugin
-            intent = RePlugin.createIntent(alias, rule.getRuleClz());
+            Intent intent = RePlugin.createIntent(alias, rule.getRuleClz());
+            intent.putExtras(bundle);
+            intent.putExtras(extras.getExtras());
+            intent.addFlags(extras.getFlags());
+            return intent;
         }
-
-        intent.putExtras(bundle);
-        intent.putExtras(extras.getExtras());
-        intent.addFlags(extras.getFlags());
-        return intent;
     }
 
     @Override
     public void open(android.support.v4.app.Fragment fragment) throws Exception {
-        open(fragment.getActivity());
+        if (TextUtils.isEmpty(alias())) {
+            super.open(fragment);
+        } else {
+            open(fragment.getActivity());
+        }
     }
 
     @Override
     public void open(Fragment fragment) throws Exception {
-        open(fragment.getActivity());
+        if (TextUtils.isEmpty(alias())) {
+            super.open(fragment);
+        } else {
+            open(fragment.getActivity());
+        }
     }
 
     @Override
     public void open(Context context) throws Exception {
         // 根据是否含有alias判断是否需要使用RePlugin进行跳转
-        if (!TextUtils.isEmpty(alias())) {
-            // 跳转其他组件。需要使用RePlugin
-            RePlugin.startActivity(context, createIntent(context));
-            return;
-        }
-
-        if (context instanceof Activity) {
-            ((Activity) context).startActivityForResult(createIntent(context), extras.getRequestCode());
+        if (TextUtils.isEmpty(alias())) {
+            super.open(context);
         } else {
-            context.startActivity(createIntent(context));
+            RePlugin.startActivity(context, createIntent(context));
+            overridePendingTransition((Activity) context, extras);
         }
     }
 
