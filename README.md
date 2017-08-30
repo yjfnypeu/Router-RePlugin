@@ -92,6 +92,16 @@ PluginRouterConfiguration.init(hostPackage, alias, context);
 
 - 配置：[HostRouterConfiguration/PluginRouterConfiguration].setRouteCallback(routeCallback)
 
+### ProGuard
+
+```
+-keep class com.lzh.nonview.router.**{*;}
+-keep class com.lzh.router.replugin.**{*;}
+-keep class * extends com.lzh.nonview.router.route.ActionSupport{*;}
+-keep class * implements com.lzh.nonview.router.interceptors.RouteInterceptor{*;}
+-keep class * implements com.lzh.nonview.router.route.RouteCallback{*;}
+```
+
 ### 联系作者
 email: 470368500@qq.com
 
