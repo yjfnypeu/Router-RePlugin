@@ -2,7 +2,9 @@
 echo "build successful"
 rm ./app/src/main/assets/plugins/plugina.jar
 rm ./app/src/main/assets/plugins/usercenter.jar
+rm ./mocked/apk/remote.apk
 echo "delete last build apk successful"
 cp ./plugina/build/outputs/apk/plugina-debug.apk ./app/src/main/assets/plugins/plugina.jar
 cp ./usercenter/build/outputs/apk/usercenter-debug.apk ./app/src/main/assets/plugins/usercenter.jar
+cp ./remote/build/outputs/apk/remote-debug.apk ./mocked/apk/remote.apk
 echo "all successful"

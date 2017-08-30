@@ -31,6 +31,8 @@ dependencies {
     annotationProcessor "com.github.yjfnypeu.Router:router-compiler:${ROUTER_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${ButterKnife_version}"
     compile "com.jakewharton:butterknife:${ButterKnife_version}"
+
+    compile 'com.android.support:support-v4:25.3.1'// 提供用于兼容ActivityLauncher编写
     testCompile 'junit:junit:4.12'
 }
 
