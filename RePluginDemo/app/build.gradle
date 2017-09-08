@@ -26,10 +26,14 @@ dependencies {
     annotationProcessor "com.github.yjfnypeu.Router:router-compiler:${ROUTER_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${ButterKnife_version}"
 
-    compile "org.lzh.compiler.parceler:parceler-api:${PARCELER_VERSION}"
+    compile "com.github.yjfnypeu.Parceler:api:${PARCELER_VERSION}"
     compile "org.lzh.nonview.updateplugin:UpdatePlugin:${UpdatePlugin_version}"
     compile 'com.alibaba:fastjson:1.1.61.android'
     compile 'com.android.support:support-v4:25.3.1'
 
-    compile project(':host')
+    if (useLocal) {
+        compile project(':host')
+    } else {
+        compile "com.github.yjfnypeu.Router-RePlugin:host:${Router_RePlugin_version}"
+    }
 }

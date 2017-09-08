@@ -26,8 +26,10 @@ task clean(type: Delete) {
 
 ext {
     ROUTER_VERSION="2.4.5"
-    PARCELER_VERSION="1.1.4"
+    PARCELER_VERSION="1.2"
     ButterKnife_version = "8.8.1"
     UpdatePlugin_version = "2.4.3"
     RePlugin_version = '2.1.7'
+    Router_RePlugin_version = '0.4'
+    useLocal = false
 }

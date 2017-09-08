@@ -24,12 +24,16 @@ apply plugin: 'replugin-plugin-gradle'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':plugin')
+    if (useLocal) {
+        compile project(':plugin')
+    } else {
+        compile "com.github.yjfnypeu.Router-RePlugin:plugin:${Router_RePlugin_version}"
+    }
 
     annotationProcessor "com.github.yjfnypeu.Router:router-compiler:${ROUTER_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${ButterKnife_version}"
 //    compile project(':stub')
-    compile "org.lzh.compiler.parceler:parceler-api:${PARCELER_VERSION}"
+    compile "com.github.yjfnypeu.Parceler:api:${PARCELER_VERSION}"
     compile "com.jakewharton:butterknife:${ButterKnife_version}"
 }
 
