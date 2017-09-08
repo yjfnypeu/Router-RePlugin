@@ -23,7 +23,7 @@ android {
 
 dependencies {
     provided "com.qihoo360.replugin:replugin-plugin-lib:${RePlugin_version}"
-    provided "org.lzh.compiler.parceler:parceler-api:${PARCELER_VERSION}"
+    provided "com.github.yjfnypeu.Parceler:api:${PARCELER_VERSION}"
     provided "com.github.yjfnypeu.Router:router-api:${ROUTER_VERSION}"
 }
 
