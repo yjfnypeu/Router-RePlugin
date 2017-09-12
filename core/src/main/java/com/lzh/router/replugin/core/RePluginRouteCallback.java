@@ -3,15 +3,20 @@ package com.lzh.router.replugin.core;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 
 import com.lzh.nonview.router.RouterConfiguration;
 import com.lzh.nonview.router.exception.NotFoundException;
+import com.lzh.nonview.router.extras.RouteBundleExtras;
 import com.lzh.nonview.router.module.RouteRule;
 import com.lzh.nonview.router.route.RouteCallback;
 import com.qihoo360.replugin.RePlugin;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 针对RePlugin框架所配置的路由回调。将在此进行连接Router-RePlugin配置：
@@ -20,6 +25,7 @@ import java.lang.ref.WeakReference;
  */
 public final class RePluginRouteCallback implements RouteCallback{
 
+    private ExecutorService pool = Executors.newSingleThreadExecutor();
     private static RePluginRouteCallback instance = new RePluginRouteCallback();
     private RePluginRouteCallback() {}
     public static RePluginRouteCallback get() {
@@ -80,14 +86,9 @@ public final class RePluginRouteCallback implements RouteCallback{
             return;
         }
 
-        Context application = getValidContext();
+        // 将中转任务放入子线程中进行启动。避免阻塞UI线程。
+        pool.execute(new StartBridgeTask(getValidContext(), alias, uri,RouterConfiguration.get().restoreExtras(uri)));
 
-        // 请求加载插件并启动中间桥接页面.便于加载插件成功后恢复路由。
-        Intent intent = RePlugin.createIntent(alias, RouterBridgeActivity.class.getCanonicalName());
-        intent.putExtra("uri", uri);
-        intent.putExtra("extras", RouterConfiguration.get().restoreExtras(uri));
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        RePlugin.startActivity(application, intent);
     }
 
     /**
@@ -118,5 +119,48 @@ public final class RePluginRouteCallback implements RouteCallback{
 
     public IPluginCallback getCallback() {
         return callback;
+    }
+
+    private static class StartBridgeTask implements Runnable {
+        private static Handler main = new Handler(Looper.getMainLooper());
+        Context context;
+        String alias;
+        Uri uri;
+        RouteBundleExtras extras;
+
+        StartBridgeTask(Context context, String alias, Uri uri, RouteBundleExtras extras) {
+            this.context = context;
+            this.alias = alias;
+            this.uri = uri;
+            this.extras = extras;
+        }
+
+        @Override
+        public void run() {
+            final IPluginCallback callback = RePluginRouteCallback.get().getCallback();
+            main.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (callback != null) {
+                        callback.onStartLoading(uri, alias);
+                    }
+                }
+            });
+            // 请求加载插件并启动中间桥接页面.便于加载插件成功后恢复路由。
+            Intent intent = RePlugin.createIntent(alias, RouterBridgeActivity.class.getCanonicalName());
+            intent.putExtra("uri", uri);
+            intent.putExtra("extras", RouterConfiguration.get().restoreExtras(uri));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            RePlugin.startActivity(context, intent);
+
+            main.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (callback != null) {
+                        callback.onLoadedCompleted(uri, alias);
+                    }
+                }
+            });
+        }
     }
 }

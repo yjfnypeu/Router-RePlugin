@@ -31,5 +31,5 @@ ext {
     UpdatePlugin_version = "2.4.3"
     RePlugin_version = '2.1.7'
     Router_RePlugin_version = '0.4'
-    useLocal = false
+    useLocal = true
 }

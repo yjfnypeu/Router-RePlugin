@@ -32,4 +32,28 @@ public interface IPluginCallback {
      * @param uri 恢复的路由uri
      */
     void onResume(Uri uri);
+
+    /**
+     * 当未匹配到此uri对应的路由规则且此uri所对应的插件别名尚未运行(即插件未运行)，则启动RePlugin的加载插件功能，此为开始加载指定插件时的回调。
+     *
+     * <p>
+     *     此回调运行于主线程，可在此针对插件首次加载时，提供进度条通知。避免UI无反应导致用户多次点击
+     * </p>
+     *
+     * @param uri uri
+     * @param alias 插件别名。
+     */
+    void onStartLoading(Uri uri, String alias);
+
+    /**
+     * 当加载指定插件完成后的回调，此处不在意是否插件加载成功。只是加载完成状态。
+     *
+     * <p>
+     *     此回调运行于主线程，可在此对{@link #onStartLoading(Uri, String)}中所做操作做个闭合，调用了{@link #onStartLoading(Uri, String)}的必定会调用此方法。
+     * </p>
+     *
+     * @param uri uri
+     * @param alias 插件别名。
+     */
+    void onLoadedCompleted(Uri uri, String alias);
 }
