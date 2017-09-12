@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityStackHelper.add(this);
         setContentView(R.layout.activity_main);
     }
 
@@ -29,5 +30,11 @@ public class MainActivity extends Activity {
             ((IActivityRoute) baseRoute).setAnim(R.anim.anim_fade_in, R.anim.anim_fade_out);
         }
         baseRoute.open(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityStackHelper.remove(this);
     }
 }

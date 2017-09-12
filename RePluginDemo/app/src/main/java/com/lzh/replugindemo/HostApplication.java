@@ -1,6 +1,8 @@
 package com.lzh.replugindemo;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.net.Uri;
 
 import com.alibaba.fastjson.JSON;
 import com.lzh.nonview.router.RouterConfiguration;
@@ -8,6 +10,7 @@ import com.lzh.nonview.router.anno.RouteConfig;
 import com.lzh.nonview.router.host.RouterHostService;
 import com.lzh.replugindemo.verify.RePluginVerification;
 import com.lzh.router.RouterRuleCreator;
+import com.lzh.router.replugin.core.IPluginCallback;
 import com.lzh.router.replugin.host.HostRouterConfiguration;
 import com.lzh.router.replugin.update.IUpdateCombine;
 import com.lzh.router.replugin.update.UpdateRePluginCallbacks;
@@ -35,6 +38,7 @@ public class HostApplication extends RePluginApplication{
         RouterHostService.setVerify(new RePluginVerification());
 
         HostRouterConfiguration.init("com.lzh.replugindemo", this);
+        HostRouterConfiguration.get().setCallback(new PluginCallback());
         // 添加路由规则。
         RouterConfiguration.get().addRouteCreator(new RouterRuleCreator());
     }
@@ -100,6 +104,47 @@ public class HostApplication extends RePluginApplication{
         @Override
         public CheckEntity combine(String alias) {
             return new CheckEntity().setUrl("https://raw.githubusercontent.com/JumeiRdGroup/Router/master/demos/RePluginDemo/mocked/api/" + alias + ".json");
+        }
+    }
+
+    private static class PluginCallback implements IPluginCallback {
+
+        ProgressDialog dialog;
+
+        @Override
+        public void onInvalidUri(Uri uri) {
+            // 当uri为非法
+        }
+
+        @Override
+        public void notFound(Uri uri, String alias) {
+
+        }
+
+        @Override
+        public void onResume(Uri uri) {
+
+        }
+
+        @Override
+        public void onStartLoading(Uri uri, String alias) {
+            if (dialog != null) {
+                return;
+            }
+            Activity top = ActivityStackHelper.top();
+            dialog = new ProgressDialog(top);
+            dialog.setTitle("加载插件" + alias + "中...");
+            dialog.show();
+        }
+
+        @Override
+        public void onLoadedCompleted(Uri uri, String alias) {
+            if (dialog == null) {
+                return;
+            }
+
+            dialog.dismiss();
+            dialog = null;
         }
     }
 }
