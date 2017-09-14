@@ -31,5 +31,5 @@ ext {
     UpdatePlugin_version = "2.4.3"
     RePlugin_version = '2.1.7'
     Router_RePlugin_version = '0.5'
-    useLocal = false // 指定当前使用的Router-RePlugin库。是使用本地的还是远程仓库的。
+    useLocal = true // 指定当前使用的Router-RePlugin库。是使用本地的还是远程仓库的。
 }

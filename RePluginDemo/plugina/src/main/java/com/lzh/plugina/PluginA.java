@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.lzh.baselib.SerialData;
 import com.lzh.nonview.router.Router;
 import com.lzh.nonview.router.anno.RouterRule;
+import com.lzh.nonview.router.route.IActionRoute;
 import com.lzh.nonview.router.route.IActivityRoute;
 import com.lzh.nonview.router.route.IBaseRoute;
 
@@ -17,10 +19,14 @@ import butterknife.OnClick;
 @RouterRule("main")
 public class PluginA extends Activity {
 
+    SerialData data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plugin_a);
+        data = (SerialData) getIntent().getExtras().getSerializable("serialData");
+        System.out.println("data = " + data);
         ButterKnife.bind(this);
     }
 

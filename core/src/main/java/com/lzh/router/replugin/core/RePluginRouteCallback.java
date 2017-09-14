@@ -149,7 +149,7 @@ public final class RePluginRouteCallback implements RouteCallback{
             // 请求加载插件并启动中间桥接页面.便于加载插件成功后恢复路由。
             Intent intent = RePlugin.createIntent(alias, RouterBridgeActivity.class.getCanonicalName());
             intent.putExtra("uri", uri);
-            intent.putExtra("extras", RouterConfiguration.get().restoreExtras(uri));
+            intent.putExtra("extras", extras);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             RePlugin.startActivity(context, intent);
 

@@ -1,4 +1,4 @@
-include ':app', ':usercenter', ':remote'
+include ':app', ':usercenter', ':remote', ':baselib'
 include ':plugina'
 //include ':stub'
 

@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.net.Uri;
 
 import com.alibaba.fastjson.JSON;
+import com.lzh.compiler.parceler.Parceler;
+import com.lzh.compiler.parceler.annotation.FastJsonConverter;
 import com.lzh.nonview.router.RouterConfiguration;
 import com.lzh.nonview.router.anno.RouteConfig;
 import com.lzh.nonview.router.host.RouterHostService;
@@ -14,8 +16,10 @@ import com.lzh.router.replugin.core.IPluginCallback;
 import com.lzh.router.replugin.host.HostRouterConfiguration;
 import com.lzh.router.replugin.update.IUpdateCombine;
 import com.lzh.router.replugin.update.UpdateRePluginCallbacks;
+import com.qihoo360.replugin.RePlugin;
 import com.qihoo360.replugin.RePluginApplication;
 import com.qihoo360.replugin.RePluginCallbacks;
+import com.qihoo360.replugin.RePluginConfig;
 
 import org.lzh.framework.updatepluginlib.UpdateConfig;
 import org.lzh.framework.updatepluginlib.model.CheckEntity;
@@ -41,6 +45,14 @@ public class HostApplication extends RePluginApplication{
         HostRouterConfiguration.get().setCallback(new PluginCallback());
         // 添加路由规则。
         RouterConfiguration.get().addRouteCreator(new RouterRuleCreator());
+        Parceler.setDefaultConverter(FastJsonConverter.class);
+    }
+
+    @Override
+    protected RePluginConfig createConfig() {
+        RePluginConfig config = super.createConfig();
+        config.setUseHostClassIfNotFound(true);
+        return config;
     }
 
     @Override
