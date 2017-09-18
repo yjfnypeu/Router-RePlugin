@@ -1,6 +1,5 @@
-include ':app', ':usercenter', ':remote', ':baselib'
+include ':app', ':usercenter', ':remote'
 include ':plugina'
-//include ':stub'
 
 // 添加外部库
 def externalModules = [

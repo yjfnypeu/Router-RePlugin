@@ -20,3 +20,5 @@ sh install.sh
 ```
 
 2. run app宿主。
+
+#### demo结构
