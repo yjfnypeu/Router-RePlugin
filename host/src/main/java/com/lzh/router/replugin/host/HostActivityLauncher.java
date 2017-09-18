@@ -1,12 +1,12 @@
 package com.lzh.router.replugin.host;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
 import com.lzh.nonview.router.launcher.DefaultActivityLauncher;
+import com.lzh.router.replugin.core.RouterBridgeActivity;
 import com.qihoo360.replugin.RePlugin;
 
 /**
@@ -49,11 +49,11 @@ public class HostActivityLauncher extends DefaultActivityLauncher {
     @Override
     public void open(Context context) throws Exception {
         // 根据是否含有alias判断是否需要使用RePlugin进行跳转
-        if (TextUtils.isEmpty(alias())) {
+        String alias = alias();
+        if (TextUtils.isEmpty(alias)) {
             super.open(context);
         } else {
-            RePlugin.startActivityForResult((Activity) context, createIntent(context), extras.getRequestCode());
-            overridePendingTransition((Activity) context, extras);
+            RouterBridgeActivity.start(context, alias, uri, extras);
         }
     }
 

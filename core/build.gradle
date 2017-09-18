@@ -25,6 +25,7 @@ dependencies {
     provided "com.qihoo360.replugin:replugin-plugin-lib:${RePlugin_version}"
     provided "com.github.yjfnypeu.Parceler:api:${PARCELER_VERSION}"
     provided "com.github.yjfnypeu.Router:router-api:${ROUTER_VERSION}"
+    compile 'com.alibaba:fastjson:1.1.61.android'
 }
 
 apply from: '../javadoc.gradle'

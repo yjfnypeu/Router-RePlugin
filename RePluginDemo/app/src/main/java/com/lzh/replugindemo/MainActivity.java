@@ -40,8 +40,7 @@ public class MainActivity extends Activity {
             ((IActivityRoute) baseRoute).setAnim(R.anim.anim_fade_in, R.anim.anim_fade_out);
         } else if (baseRoute instanceof IActionRoute) {
             ((IActionRoute) baseRoute).addExtras(Parceler.createFactory(null)
-//                    .setForceConvert(true)
-                    .put("callback", new HostCallback(this))
+                    .setForceConvert(true)
                     .put("user", new User("haoge", 18))
                     .getBundle());
         }
@@ -52,19 +51,5 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         ActivityStackHelper.remove(this);
-    }
-
-    public static class HostCallback implements RePluginCallback, Serializable{
-
-        private Activity activity;
-
-        public HostCallback(Activity activity) {
-            this.activity = activity;
-        }
-
-        @Override
-        public void onSuccess() {
-            Toast.makeText(activity, "invoked onSuccess from plugin", Toast.LENGTH_SHORT).show();
-        }
     }
 }

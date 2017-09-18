@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.lzh.nonview.router.RouterConfiguration;
 import com.lzh.nonview.router.exception.NotFoundException;
@@ -114,6 +115,8 @@ public final class RePluginRouteCallback implements RouteCallback{
     public void onOpenFailed(Uri uri, Throwable e) {
         if (routeCallback != null) {
             routeCallback.onOpenFailed(uri, e);
+        } else {
+            e.printStackTrace();
         }
     }
 
@@ -147,11 +150,7 @@ public final class RePluginRouteCallback implements RouteCallback{
                 }
             });
             // 请求加载插件并启动中间桥接页面.便于加载插件成功后恢复路由。
-            Intent intent = RePlugin.createIntent(alias, RouterBridgeActivity.class.getCanonicalName());
-            intent.putExtra("uri", uri);
-            intent.putExtra("extras", extras);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            RePlugin.startActivity(context, intent);
+            RouterBridgeActivity.start(context, alias, uri, extras);
 
             main.post(new Runnable() {
                 @Override

@@ -1,13 +1,12 @@
 package com.lzh.router.replugin.plugin;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.lzh.nonview.router.launcher.ActivityLauncher;
 import com.lzh.nonview.router.launcher.DefaultActivityLauncher;
+import com.lzh.router.replugin.core.RouterBridgeActivity;
 import com.qihoo360.replugin.RePlugin;
 
 /**
@@ -54,18 +53,12 @@ public class PluginActivityLauncher extends DefaultActivityLauncher {
         if (TextUtils.isEmpty(alias())) {
             super.open(context);
         } else {
-            RePlugin.startActivity(context, createIntent(context));
-            overridePendingTransition((Activity) context, extras);
+            RouterBridgeActivity.start(context, alias(), uri, extras);
         }
     }
 
     private String alias() {
-        // remote: 由其他组件通过IRemoteFactory接口创建的bundle并通过远程服务传递过来的共享数据。
-        // 在此取出进行适配：(存取数据参考PluginRemoteFactory)
-        // 若不含有别名。表示此路由匹配的页面。在当前插件中。或者在host中。
-        if (remote == null || !remote.containsKey("alias")) {
-            return null;
-        }
-        return remote.getString("alias");
+        String alias = remote.getString("alias");
+        return alias;
     }
 }

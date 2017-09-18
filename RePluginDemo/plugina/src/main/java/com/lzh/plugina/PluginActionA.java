@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.lzh.baselib.RePluginCallback;
 import com.lzh.nonview.router.anno.RouterRule;
 import com.lzh.nonview.router.route.ActionSupport;
 
@@ -14,9 +13,8 @@ public class PluginActionA extends ActionSupport{
 
     @Override
     public void onRouteTrigger(Context context, Bundle bundle) {
-        Object user = bundle.get("callback");
-        RePluginCallback callback = (RePluginCallback) user;
+        Object user = bundle.get("user");
+        System.out.println("user = " + user);
         Toast.makeText(context, "Plugin Action A invoked!", Toast.LENGTH_SHORT).show();
-        callback.onSuccess();
     }
 }
