@@ -16,7 +16,6 @@ import com.lzh.router.replugin.core.IPluginCallback;
 import com.lzh.router.replugin.host.HostRouterConfiguration;
 import com.lzh.router.replugin.update.IUpdateCombine;
 import com.lzh.router.replugin.update.UpdateRePluginCallbacks;
-import com.qihoo360.replugin.RePlugin;
 import com.qihoo360.replugin.RePluginApplication;
 import com.qihoo360.replugin.RePluginCallbacks;
 import com.qihoo360.replugin.RePluginConfig;
