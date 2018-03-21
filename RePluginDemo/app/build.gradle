@@ -27,7 +27,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${ButterKnife_version}"
 
     compile "com.github.yjfnypeu.Parceler:api:${PARCELER_VERSION}"
-    compile "org.lzh.nonview.updateplugin:UpdatePlugin:${UpdatePlugin_version}"
+    compile "com.github.yjfnypeu:UpdatePlugin:${UpdatePlugin_version}"
     compile 'com.alibaba:fastjson:1.1.61.android'
     compile 'com.android.support:support-v4:25.3.1'
 

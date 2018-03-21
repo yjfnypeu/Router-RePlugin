@@ -21,17 +21,16 @@ import com.qihoo360.replugin.RePluginCallbacks;
 import com.qihoo360.replugin.RePluginConfig;
 
 import org.lzh.framework.updatepluginlib.UpdateConfig;
+import org.lzh.framework.updatepluginlib.base.UpdateChecker;
+import org.lzh.framework.updatepluginlib.base.UpdateParser;
+import org.lzh.framework.updatepluginlib.base.UpdateStrategy;
 import org.lzh.framework.updatepluginlib.model.CheckEntity;
 import org.lzh.framework.updatepluginlib.model.Update;
-import org.lzh.framework.updatepluginlib.model.UpdateChecker;
-import org.lzh.framework.updatepluginlib.model.UpdateParser;
-import org.lzh.framework.updatepluginlib.strategy.UpdateStrategy;
 
 // 指定生成路由的baseUrl。此baseUrl会与使用RouteRule所指定的path所组合。形成一个完整的路由地址。
 // 生成的路由表。参考下方添加路由规则的RouterRuleCreator类。
 @RouteConfig(baseUrl = "host://")
 public class HostApplication extends RePluginApplication{
-
 
     @Override
     public void onCreate() {
@@ -59,9 +58,9 @@ public class HostApplication extends RePluginApplication{
         return new UpdateRePluginCallbacks(this,
                 // 设置UpdateConfig。用于进行远程plugin更新。
                 UpdateConfig.createConfig()
-                        .updateChecker(new PluginChecker())
-                        .jsonParser(new JsonParser())
-                        .strategy(new PluginStrategy()),
+                        .setUpdateChecker(new PluginChecker())
+                        .setUpdateParser(new JsonParser())
+                        .setUpdateStrategy(new PluginStrategy()),
                 // 设置远程插件更新接口api组装。
                 new HostUpdateCombine());
     }
@@ -72,6 +71,7 @@ public class HostApplication extends RePluginApplication{
     private static class JsonParser implements UpdateParser {
         @Override
         public Update parse(String httpResponse) throws Exception {
+
             return JSON.parseObject(httpResponse, Update.class);
         }
     }

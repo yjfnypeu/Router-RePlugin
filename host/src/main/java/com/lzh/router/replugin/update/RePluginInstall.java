@@ -7,12 +7,14 @@ import android.widget.Toast;
 import com.qihoo360.replugin.RePlugin;
 import com.qihoo360.replugin.model.PluginInfo;
 
-import org.lzh.framework.updatepluginlib.strategy.InstallStrategy;
+import org.lzh.framework.updatepluginlib.base.InstallStrategy;
+import org.lzh.framework.updatepluginlib.model.Update;
+
 
 /**
  * 定制下载成功后安装操作。下载后进行安装并重启plugin intent.
  */
-class RePluginInstall implements InstallStrategy{
+class RePluginInstall implements InstallStrategy {
 
     private String pluginName;
     private Context context;
@@ -25,7 +27,7 @@ class RePluginInstall implements InstallStrategy{
     }
 
     @Override
-    public void install(Context context, String filename) {
+    public void install(Context context, String filename, Update update) {
         PluginInfo info = RePlugin.install(filename);
         if (!info.getAlias().equals(pluginName)) {
             // 校验是否插件的别名能匹配上。将不正确的卸载掉

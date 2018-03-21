@@ -28,7 +28,7 @@ public interface IPluginCallback {
     void notFound(Uri uri, String alias);
 
     /**
-     * 当此uri对应的插件被加载成功。且成功恢复时。回调通知到此
+     * 当此uri对应的插件被加载成功。且成功恢复时。回调通知到此。此回调运行于主线程中。
      * @param uri 恢复的路由uri
      */
     void onResume(Uri uri);

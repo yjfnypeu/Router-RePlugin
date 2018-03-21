@@ -1,6 +1,7 @@
 package com.lzh.router.replugin.core;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,7 +9,6 @@ import android.os.Bundle;
 
 import com.lzh.nonview.router.Router;
 import com.lzh.nonview.router.extras.RouteBundleExtras;
-import com.lzh.nonview.router.route.IRoute;
 import com.qihoo360.replugin.RePlugin;
 
 /**
@@ -30,12 +30,7 @@ public class RouterBridgeActivity extends Activity {
         callback = RePluginRouteCallback.get().getCallback();
         if (uri != null) {
             // 通过传递过来的uri与其对应的extras。恢复之前插件未加载时的路由。
-            IRoute resume = Router.resume(uri, extras);
-            if (resume instanceof IRoute.EmptyRoute) {
-                // 当恢复的路由为EmptyRoute时。代表此为无效路由。不进行启动操作。
-                return;
-            }
-            resume.open(RouterBridgeActivity.this);
+            Router.resume(uri, extras).open(this);
         }
         IPluginCallback callback = RePluginRouteCallback.get().getCallback();
         if (callback != null) {
@@ -44,14 +39,10 @@ public class RouterBridgeActivity extends Activity {
         finish();
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-    }
-
     public static void start(Context context, String alias, Uri uri, RouteBundleExtras extras) {
         // 请求加载插件并启动中间桥接页面.便于加载插件成功后恢复路由。
-        Intent intent = RePlugin.createIntent(alias, RouterBridgeActivity.class.getCanonicalName());
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName(alias, RouterBridgeActivity.class.getCanonicalName()));
         intent.putExtra("uri", uri);
         intent.putExtra("extras", extras);
         if (!(context instanceof Activity)) {

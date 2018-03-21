@@ -25,8 +25,8 @@ public class UpdateRePluginCallbacks extends RePluginCallbacks{
     @Override
     public boolean onPluginNotExistsForActivity(Context context, String plugin, Intent intent, int process) {
         UpdateBuilder.create(updateConfig)
-                .checkEntity(combine.combine(plugin))
-                .installStrategy(new RePluginInstall(plugin, context, intent))
+                .setCheckEntity(combine.combine(plugin))
+                .setInstallStrategy(new RePluginInstall(plugin, context, intent))
                 .check();
         return true;
     }

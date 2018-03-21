@@ -26,7 +26,7 @@ dependencies {
 
     provided "com.github.yjfnypeu.Parceler:api:${PARCELER_VERSION}"
     provided 'com.android.support:support-v4:25.3.1'// 提供用于兼容ActivityLauncher编写
-    provided "org.lzh.nonview.updateplugin:UpdatePlugin:${UpdatePlugin_version}"
+    provided "com.github.yjfnypeu:UpdatePlugin:${UpdatePlugin_version}"
 
     compile "com.qihoo360.replugin:replugin-host-lib:${RePlugin_version}"
     compile "com.github.yjfnypeu.Router:router-host:${ROUTER_VERSION}"
