@@ -9,7 +9,7 @@ import com.lzh.nonview.router.route.RouteCallback;
 import com.lzh.router.replugin.core.IPluginCallback;
 import com.lzh.router.replugin.core.IUriConverter;
 import com.lzh.router.replugin.core.RePluginRouteCallback;
-import com.lzh.router.replugin.core.RouterBridgeReceiver;
+import com.lzh.router.replugin.core.RouterResumeReceiver;
 
 import java.util.List;
 
@@ -35,12 +35,12 @@ public final class HostRouterConfiguration {
         RouterConfiguration.get().startHostService(hostPackage, context);
         // 初始化callback.
         RouterConfiguration.get().setRemoteFactory(new HostRemoteFactory());
-        RouterConfiguration.get().setCallback(RePluginRouteCallback.get().setContext(context));
+        RouterConfiguration.get().setCallback(RePluginRouteCallback.get());
         // 设置路由启动器
         RouterConfiguration.get().setActionLauncher(HostActionLauncher.class);
         RouterConfiguration.get().setActivityLauncher(HostActivityLauncher.class);
 
-        RouterBridgeReceiver.registerSelf(context, null, true);
+        RouterResumeReceiver.registerSelf(context, null, true);
     }
 
     public HostRouterConfiguration setCallback(IPluginCallback callback) {

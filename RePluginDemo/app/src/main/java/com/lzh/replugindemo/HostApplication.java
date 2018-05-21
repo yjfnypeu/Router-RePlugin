@@ -7,6 +7,7 @@ import android.net.Uri;
 import com.alibaba.fastjson.JSON;
 import com.lzh.compiler.parceler.Parceler;
 import com.lzh.compiler.parceler.annotation.FastJsonConverter;
+import com.lzh.nonview.router.Router;
 import com.lzh.nonview.router.RouterConfiguration;
 import com.lzh.nonview.router.anno.RouteConfig;
 import com.lzh.nonview.router.host.RouterHostService;
@@ -44,6 +45,8 @@ public class HostApplication extends RePluginApplication{
         // 添加路由规则。
         RouterConfiguration.get().addRouteCreator(new RouterRuleCreator());
         Parceler.setDefaultConverter(FastJsonConverter.class);
+
+        Router.DEBUG = true;
     }
 
     @Override

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.lzh.nonview.router.launcher.DefaultActionLauncher;
-import com.lzh.router.replugin.core.RouterBridgeReceiver;
+import com.lzh.router.replugin.core.RouterResumeReceiver;
 
 /**
  * 针对RePlugin框架定制的动作路由启动器。
@@ -16,7 +16,7 @@ public class PluginActionLauncher extends DefaultActionLauncher {
         String alias = alias();
         boolean isHost = isHost();
         if (isHost || !TextUtils.isEmpty(alias)) {
-            RouterBridgeReceiver.start(context, alias, isHost, uri, extras);
+            RouterResumeReceiver.start(context, alias, isHost, uri, extras);
         } else {
             super.open(context);
         }

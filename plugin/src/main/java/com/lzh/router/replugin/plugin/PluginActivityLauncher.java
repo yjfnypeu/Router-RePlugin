@@ -1,12 +1,13 @@
 package com.lzh.router.replugin.plugin;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.lzh.nonview.router.activityresult.ActivityResultDispatcher;
 import com.lzh.nonview.router.launcher.DefaultActivityLauncher;
-import com.lzh.router.replugin.core.RouterBridgeActivity;
 import com.qihoo360.replugin.RePlugin;
 
 /**
@@ -30,7 +31,7 @@ public class PluginActivityLauncher extends DefaultActivityLauncher {
     }
 
     @Override
-    public void open(android.support.v4.app.Fragment fragment) throws Exception {
+    public void open(android.support.v4.app.Fragment fragment) {
         if (TextUtils.isEmpty(alias())) {
             super.open(fragment);
         } else {
@@ -39,7 +40,7 @@ public class PluginActivityLauncher extends DefaultActivityLauncher {
     }
 
     @Override
-    public void open(Fragment fragment) throws Exception {
+    public void open(Fragment fragment) {
         if (TextUtils.isEmpty(alias())) {
             super.open(fragment);
         } else {
@@ -48,12 +49,15 @@ public class PluginActivityLauncher extends DefaultActivityLauncher {
     }
 
     @Override
-    public void open(Context context) throws Exception {
+    public void open(Context context) {
         // 根据是否含有alias判断是否需要使用RePlugin进行跳转
         if (TextUtils.isEmpty(alias())) {
             super.open(context);
         } else {
-            RouterBridgeActivity.start(context, alias(), uri, extras);
+            Intent intent = createIntent(context);
+            RePlugin.startActivityForResult(((Activity) context), intent, extras.getRequestCode());
+            overridePendingTransition((Activity) context, extras);
+            ActivityResultDispatcher.get().bindRequestArgs(((Activity) context), extras.getRequestCode(), resultCallback);
         }
     }
 

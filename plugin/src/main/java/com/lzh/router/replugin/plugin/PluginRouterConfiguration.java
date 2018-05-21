@@ -7,7 +7,7 @@ import com.lzh.nonview.router.route.RouteCallback;
 import com.lzh.router.replugin.core.IPluginCallback;
 import com.lzh.router.replugin.core.IUriConverter;
 import com.lzh.router.replugin.core.RePluginRouteCallback;
-import com.lzh.router.replugin.core.RouterBridgeReceiver;
+import com.lzh.router.replugin.core.RouterResumeReceiver;
 
 /**
  * RePlugin插件配置入口。
@@ -28,12 +28,14 @@ public final class PluginRouterConfiguration {
         // 提供远程数据创建工厂
         RouterConfiguration.get().setRemoteFactory(new PluginRemoteFactory(alias));
         // 初始化callback.
-        RouterConfiguration.get().setCallback(RePluginRouteCallback.get().setContext(context));
+        RouterConfiguration.get().setCallback(RePluginRouteCallback.get());
         // 设置路由启动器
         RouterConfiguration.get().setActionLauncher(PluginActionLauncher.class);
         RouterConfiguration.get().setActivityLauncher(PluginActivityLauncher.class);
+        // 设置自身的插件别名
+        RePluginRouteCallback.get().setAlias(alias);
 
-        RouterBridgeReceiver.registerSelf(context, alias, false);
+        RouterResumeReceiver.registerSelf(context, alias, false);
     }
 
     public PluginRouterConfiguration setCallback(IPluginCallback callback) {

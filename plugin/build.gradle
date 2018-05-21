@@ -23,7 +23,6 @@ android {
 dependencies {
     compile project(':core')
 
-    provided 'com.qihoo360.replugin:replugin-plugin-lib:2.1.7'
     provided "com.github.yjfnypeu.Parceler:api:${PARCELER_VERSION}"
     provided 'com.android.support:support-v4:25.3.1'// 提供用于兼容ActivityLauncher编写
 
