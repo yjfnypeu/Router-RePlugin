@@ -1,8 +1,9 @@
 ext {
-    ROUTER_VERSION="1c9caf4a7a"
+    ROUTER_VERSION="2.7.2"
     PARCELER_VERSION="1.3.9"
     ButterKnife_version = "8.8.1"
     UpdatePlugin_version = "2.9.1"
+    RePlugin_version = "2.2.4"
     Router_RePlugin_version = '0.8.0'
     useLocal = true // 指定当前使用的Router-RePlugin库。是使用本地的还是远程仓库的。
 }

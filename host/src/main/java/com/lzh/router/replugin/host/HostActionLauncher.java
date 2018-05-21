@@ -12,7 +12,7 @@ import com.lzh.router.replugin.core.RouterResumeReceiver;
 public class HostActionLauncher extends DefaultActionLauncher {
 
     @Override
-    public void open(Context context) throws Exception {
+    public void open(Context context) {
         String alias = remote.getString("alias");
         if (TextUtils.isEmpty(alias)) {
             // 代表在宿主中

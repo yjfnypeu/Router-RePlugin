@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
                 .resultCallback(new ActivityResultCallback() {
                     @Override
                     public void onResult(int resultCode, Intent data) {
-                        Toast.makeText(MainActivity.this, "Receive result", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Host MainActivity Receive result" , Toast.LENGTH_SHORT).show();
                     }
                 })
                 .open(this);

@@ -12,7 +12,7 @@ import com.lzh.router.replugin.core.RouterResumeReceiver;
 public class PluginActionLauncher extends DefaultActionLauncher {
 
     @Override
-    public void open(Context context) throws Exception {
+    public void open(Context context) {
         String alias = alias();
         boolean isHost = isHost();
         if (isHost || !TextUtils.isEmpty(alias)) {
